@@ -1,0 +1,29 @@
+@keyframes openInside {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes closeTablet {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.openingInside {
+    animation-name: openInside;
+    animation-duration: 1s;
+}
+
+.closingInside {
+    animation-name: closeTablet;
+    animation-duration: 1s;
+}

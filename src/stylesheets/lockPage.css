@@ -1,0 +1,33 @@
+.lock-button:hover {
+    transform: scale(0.97);
+    box-shadow: black -1px 1px 50px;
+}
+
+.no-strap {
+    display: none;
+}
+
+@keyframes openTablet {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes closeTablet {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.openLockPage {
+    animation-name: openTablet;
+    animation-duration: 1s;
+}
+
+.closeLockPage {
+    animation-name: closeTablet;
+    animation-duration: 1s;
+}
