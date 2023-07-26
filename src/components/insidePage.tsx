@@ -82,11 +82,48 @@ const InsidePage = () => {
                         fontFamily: '"Gideon Roman"',
                         fontSize: '25px',
                         textAlign: 'center',
-                        marginBottom: '80px',
+                        marginBottom: '50px',
                         userSelect: 'none'
                     }}>
-                        ZONA DE ENTENAMIENTO ABIERTA    
+                        ABRIR ZONA DE ENTRENAMIENTO    
                 </div>
+
+
+
+                <div style={{
+                    color: '#3F3A2F',
+                    fontWeight: 'bold',
+                    fontFamily: '"Gideon Roman"',
+                    fontSize: '25px',
+                    textAlign: 'center',
+                    marginBottom: '15px',
+                    userSelect: 'none'
+                }}>
+                    CLAVE:
+                </div>
+
+                
+
+                <div style={{
+                    color: '#3F3A2F',
+                    fontWeight: 'bold',
+                    fontFamily: '"Gideon Roman"',
+                    fontSize: '25px',
+                    textAlign: 'center',
+                    marginBottom: '50px',
+                    userSelect: 'none',
+                    padding: '5px 10px',
+                    boxShadow: 'black -1px 1px 5px',
+                    borderRadius: '20px',
+                    backgroundImage: `url(${tabletTexture})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                }}>
+                    CO'ORPHIK
+                </div>
+
+                
                 
                 <BackButton delayAndGo={delayAndGo} />
 
