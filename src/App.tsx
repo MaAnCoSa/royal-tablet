@@ -20,8 +20,17 @@ function App() {
         alignItems: 'center'
     }}>
       <Routes>
-        <Route path='/' element={<LockPage />} />
-        <Route path='/ze' element={<InsidePage />} />
+        <Route path='/' element={<LockPage
+          digit1={1}
+          digit2={1}
+          digit3={1}
+          digit4={1}
+          digit5={1}
+        />} />
+        <Route path='/ze' element={<InsidePage 
+          msg={"ABRIR ZONA DE ENTRENAMIENTO"}
+          clave={"CO'ORPHIK"}
+        />} />
       </Routes>
     </div>
     

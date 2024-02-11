@@ -6,7 +6,10 @@ import coor from '../images/Coor.png';
 import { useNavigate } from 'react-router-dom';
 import '../stylesheets/insidePage.css';
 
-const InsidePage = () => {
+const InsidePage: React.FC<{
+    clave: string,
+    msg: string
+}> = (props) => {
 
     const [closing, setClosing] = useState<string>('openingInside');
 
@@ -85,7 +88,7 @@ const InsidePage = () => {
                         marginBottom: '50px',
                         userSelect: 'none'
                     }}>
-                        ABRIR ZONA DE ENTRENAMIENTO    
+                        {props.msg}    
                 </div>
 
 
@@ -120,7 +123,7 @@ const InsidePage = () => {
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                 }}>
-                    CO'ORPHIK
+                    {props.clave}
                 </div>
 
                 

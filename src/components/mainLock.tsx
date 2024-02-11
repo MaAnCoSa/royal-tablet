@@ -10,9 +10,16 @@ import o2Symbol from '../images/o2.png';
 import rSymbol from '../images/r.png';
 import zSymbol from '../images/z.png';
 
+const MainLock: React.FC<{
+    setOpen: Function,
+    digit1: number,
+    digit2: number,
+    digit3: number,
+    digit4: number,
+    digit5: number
+}> = (props) => {
 
-
-const MainLock = ({ setOpen }: { setOpen: Function }) => {
+//const MainLock = ({ setOpen, key }: { setOpen: Function, key: number[] }) => {
 
     const [pestillo1, setPestillo1] = useState<number>(0);
     const [pestillo2, setPestillo2] = useState<number>(0);
@@ -83,12 +90,12 @@ const MainLock = ({ setOpen }: { setOpen: Function }) => {
 
     const revisarCombinacion = () => {
         const open: boolean =
-            pestillo1 === 3
-            && pestillo2 === 4
-            && pestillo3 === 8
-            && pestillo4 === 2
-            && pestillo5 === 5;
-        open ? setOpen(true) : setOpen(false);
+            pestillo1 === props.digit1
+            && pestillo2 === props.digit2
+            && pestillo3 === props.digit3
+            && pestillo4 === props.digit4
+            && pestillo5 === props.digit5;
+        open ? props.setOpen(true) : props.setOpen(false);
         return open;
     };
 
