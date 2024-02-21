@@ -52,7 +52,7 @@ function App() {
 
   const login = async (table_name: string) => {
     let date = new Date()
-    date.setSeconds(date.getSeconds() + 120)
+    date.setSeconds(date.getMinutes() + 30)
     document.cookie = `royal-tablet-table-name=${table_name}; expires=${date.toUTCString()}`
 
     const requestOptions = {
