@@ -60,8 +60,7 @@ function App() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ table_name: table_name })
     }
-    //await fetch('https://backcaliria.vercel.app/rtlogin-user', requestOptions)
-    await fetch('http://localhost:5000/rtlogin-user', requestOptions)
+    await fetch('https://backcaliria.vercel.app/rtlogin-user', requestOptions)
     .then(res => res.json())
     .then((sol: {auth: boolean, comb: string, table_id: string}) => {
         if (sol.auth) {
