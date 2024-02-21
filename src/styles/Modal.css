@@ -61,3 +61,20 @@ body.active-modal {
     color: #f7e2c6;
     font-size: 20px;
 }
+
+.cerrar-sesion {
+    font-family: Gideon Roman;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: rgb(231, 179, 120);
+    box-shadow: 10px 10px 10px black;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.cerrar-sesion:hover {
+    transform: scale(0.97);
+    box-shadow: black 5px 5px 10px;
+}

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import LockPage from './components/lockPage';
 import InsidePage from './components/insidePage';
 import backgroundTexture from './images/background_texture.jpg';
 import './styles/Modal.css';
+import { useEffectOnce } from 'react-use';
 
 
 
 function App() {
   const [loginModal, setLoginModal] = useState<boolean>(true)
   const [tableName, setTableName] = useState<string>("")
-  //const [tableId, setTableId] = useState<string>("")
+ 
+  const cookies = new Map()
 
   type comb = {
     d1: number,
@@ -34,13 +36,32 @@ function App() {
 
   const [actualComb, setActualComb] = useState<comb>(emptyComb)
 
-  const login = async () => {
+  useEffectOnce(() => {
+    const cookiesRaw = document.cookie.split('; ')
+    cookiesRaw.forEach(i => {
+      const pair = i.split('=')
+      cookies.set(pair[0], pair[1])
+    })
+    console.log(cookies)
+
+    if (cookies.has('royal-tablet-table-name')) {
+      setTableName(cookies.get('royal-tablet-table-name'))
+      login(cookies.get('royal-tablet-table-name'))
+    }
+  })
+
+  const login = async (table_name: string) => {
+    let date = new Date()
+    date.setSeconds(date.getSeconds() + 120)
+    document.cookie = `royal-tablet-table-name=${table_name}; expires=${date.toUTCString()}`
+
     const requestOptions = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ table_name: tableName })
+      body: JSON.stringify({ table_name: table_name })
     }
-    await fetch('https://backcaliria.vercel.app/rtlogin-user', requestOptions)
+    //await fetch('https://backcaliria.vercel.app/rtlogin-user', requestOptions)
+    await fetch('http://localhost:5000/rtlogin-user', requestOptions)
     .then(res => res.json())
     .then((sol: {auth: boolean, comb: string, table_id: string}) => {
         if (sol.auth) {
@@ -58,37 +79,15 @@ function App() {
           console.log(parsedSol)
           console.log(actualComb)
           setLoginModal(false)
-          //setTableId(sol.table_id)
         }
 
     });
   }
 
-  /* const [d1, setD1] = useState<number>(0)
-  const [d2, setD2] = useState<number>(0)
-  const [d3, setD3] = useState<number>(0)
-  const [d4, setD4] = useState<number>(0)
-  const [d5, setD5] = useState<number>(0)
-  const [clave, setClave] = useState<string>("")
-  const [mensaje, setMensaje] = useState<string>("") */
-
-  /* const get_RT_sol = async () => {
-      await fetch(`https://backcaliria.vercel.app/rtsol/${tableId}`)
-      .then(res => res.json())
-      .then(sol => {
-          const newSol = {
-            d1: sol.comb.d1,
-            d2: sol.comb.d2,
-            d3: sol.comb.d3,
-            d4: sol.comb.d4,
-            d5: sol.comb.d5,
-            msg: sol.comb.msg,
-            code: sol.comb.code
-          }
-          setSol(newSol)
-
-      });
-  } */
+  const cerrarSesion = () => {
+    document.cookie = `royal-tablet-table-name=${cookies.get('royal-tablet-table-name')}; expires=${new Date()}`
+    setLoginModal(true)
+  }
 
   return (
     <div
@@ -138,32 +137,46 @@ function App() {
             }} type="text" value={tableName} onChange={(event) => setTableName(event.target.value)} />
           </div>
 
-          <button
-            className='close-modal'
-            onClick={() => login()} >
-            ENTRAR
-          </button>
+          <Link to='/'>
+            <button
+              className='close-modal'
+              onClick={() => login(tableName)} >
+              ENTRAR
+            </button>
+          </Link>
         </div>
-
-
-        
       </div>
       )}
 
       {!loginModal && 
-      <Routes>
-        <Route path='/' element={<LockPage
-          digit1={actualComb.d1}
-          digit2={actualComb.d2}
-          digit3={actualComb.d3}
-          digit4={actualComb.d4}
-          digit5={actualComb.d5}
-        />} />
-        <Route path='/ze' element={<InsidePage 
-          msg={actualComb.msg}
-          clave={actualComb.code}
-        />} />
-      </Routes>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <Routes>
+          <Route path='/' element={<LockPage
+            digit1={actualComb.d1}
+            digit2={actualComb.d2}
+            digit3={actualComb.d3}
+            digit4={actualComb.d4}
+            digit5={actualComb.d5}
+          />} />
+          <Route path='/ze' element={<InsidePage 
+            msg={actualComb.msg}
+            clave={actualComb.code}
+          />} />
+        </Routes>
+
+        <div style={{
+          marginTop: '40px'
+        }}>
+          <button className="cerrar-sesion" onClick={() => cerrarSesion()}>
+            CERRAR SESIÓN
+          </button>
+        </div>
+      </div>
       }
     </div>
     
