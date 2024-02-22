@@ -133,13 +133,18 @@ function App() {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
+
+        <div className='table-name'>
+          Mesa - {tableName}
+        </div>
+
         <Routes>
           <Route path='/' element={<LockPage />} />
           <Route path='/ze' element={<InsidePage />} />
         </Routes>
 
         <div style={{
-          marginTop: '40px'
+          marginTop: '25px'
         }}>
           <button className="cerrar-sesion" onClick={() => cerrarSesion()}>
             CERRAR SESIÓN

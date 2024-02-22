@@ -35,7 +35,7 @@ body.active-modal {
     border-radius: 30px;
     border: 5px solid #241707;
     max-width: 600px;
-    min-width: 300px;
+    min-width: 270px;
     min-height: 350px;
     display: flex;
     flex-direction: column;
@@ -77,4 +77,21 @@ body.active-modal {
 .cerrar-sesion:hover {
     transform: scale(0.97);
     box-shadow: black 5px 5px 10px;
+}
+
+.table-name {
+    font-family: Gideon Roman;
+    background-color: rgb(231, 179, 120);
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    padding: 10px 17px;
+    border-radius: 30px;
+    border: 1px solid black;
+    user-select: none;
+    box-shadow: 10px 10px 10px black;
+    max-width: 290px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
