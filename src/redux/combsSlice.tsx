@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { comb, emptyComb } from "../comb";
 
 const initialState = {
     combs: [],

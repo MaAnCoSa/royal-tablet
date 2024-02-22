@@ -78,11 +78,13 @@ function App() {
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         margin: '-10px',
-        width: '100vw',
+        maxWidth: '100vw',
+        minWidth: '320px',
         height: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
     }}>
 
       {loginModal && (
