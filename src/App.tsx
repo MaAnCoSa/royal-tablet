@@ -71,94 +71,99 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${backgroundTexture})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        margin: '-10px',
-        maxWidth: '100vw',
-        minWidth: '320px',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden'
-    }}>
-
-      {loginModal && (
-      <div className="modal">
-        <div className="overlay"></div>
-        <div className="modal-content">
-          <h2 style={{fontSize: '40px'}}>Royal Tablet</h2>
-
-          <h2>Login</h2>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'right',
-            height: '50px',
-            width: '100%',
-            margin: '5px',
-            alignItems: 'center'
+          <div
+            style={{
+              backgroundImage: `url(${backgroundTexture})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              margin: '-10px',
+              maxWidth: '100vw',
+              minWidth: '320px',
+              height: '100vh',
+              minHeight: '800px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              overflowX: 'hidden',
           }}>
-            <p style={{
-              fontSize: '20px',
-              fontWeight: 'bold',
-              height: '20px',
-              padding: 'none',
-              margin: '20px 10px'
-            }}>Mesa: </p>
-            <input style={{
+
+        {loginModal && (
+        <div className="modal">
+          <div className="overlay"></div>
+          <div className="modal-content">
+            <h2 style={{fontSize: '40px'}}>Royal Tablet</h2>
+
+            <h2>Login</h2>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'right',
+              height: '50px',
               width: '100%',
-              height: '20px',
-              marginTop: '10px',
-              padding: 'none',
-              backgroundColor: '#241707',
-              color: '#f7e2c6',
-              boxShadow: 'none'
-            }} type="text" value={tableName} onChange={(event) => setTableName(event.target.value)} />
+              margin: '5px',
+              alignItems: 'center'
+            }}>
+              <p style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                height: '20px',
+                padding: 'none',
+                margin: '20px 10px'
+              }}>Mesa: </p>
+              <input style={{
+                width: '100%',
+                height: '20px',
+                marginTop: '10px',
+                padding: 'none',
+                backgroundColor: '#241707',
+                color: '#f7e2c6',
+                boxShadow: 'none'
+              }} type="text" value={tableName} onChange={(event) => setTableName(event.target.value)} />
+            </div>
+
+            <Link to='/'>
+              <button
+                className='close-modal'
+                onClick={() => login(tableName)} >
+                ENTRAR
+              </button>
+            </Link>
+          </div>
+        </div>
+        )}
+
+        {(!loginModal) && 
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          //border: '1px red solid',
+          maxWidth: '350px',
+          width: '100%',
+          marginTop: '',
+          margin: '10px auto 0 auto',
+          alignItems: 'center'
+          
+        }}>
+
+          <div className='table-name'>
+            Mesa - {tableName}
           </div>
 
-          <Link to='/'>
-            <button
-              className='close-modal'
-              onClick={() => login(tableName)} >
-              ENTRAR
+          <Routes>
+            <Route path='/' element={<LockPage />} />
+            <Route path='/ze' element={<InsidePage />} />
+          </Routes>
+
+          <div style={{
+            marginTop: '25px'
+          }}>
+            <button className="cerrar-sesion" onClick={() => cerrarSesion()}>
+              CERRAR SESIÓN
             </button>
-          </Link>
+          </div>
         </div>
+        }
       </div>
-      )}
-
-      {(!loginModal) && 
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-
-        <div className='table-name'>
-          Mesa - {tableName}
-        </div>
-
-        <Routes>
-          <Route path='/' element={<LockPage />} />
-          <Route path='/ze' element={<InsidePage />} />
-        </Routes>
-
-        <div style={{
-          marginTop: '25px'
-        }}>
-          <button className="cerrar-sesion" onClick={() => cerrarSesion()}>
-            CERRAR SESIÓN
-          </button>
-        </div>
-      </div>
-      }
-    </div>
-    
   );
 }
 
