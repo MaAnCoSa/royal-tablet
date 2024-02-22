@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import LockPage from './components/lockPage';
 import InsidePage from './components/insidePage';
 import backgroundTexture from './images/background_texture.jpg';
@@ -12,6 +12,8 @@ import { useDispatch } from 'react-redux';
 
 
 function App() {
+  const history = useNavigate()
+
   const dispatch = useDispatch()
 
   const [loginModal, setLoginModal] = useState<boolean>(true)
@@ -55,6 +57,7 @@ function App() {
           dispatch(changeCombList(newCombList))
 
           setLoginModal(false)
+          setTimeout(() => history ('/'), 0);
         }
     });
   }

@@ -83,7 +83,8 @@ const MainLock = () => {
 
     const revisarCombinacion = () => {
         for (let i = 0; i < combs.length; i++) {
-            if (pestillo1 === combs[i].d1
+            if (combs[i].active
+                && pestillo1 === combs[i].d1
                 && pestillo2 === combs[i].d2
                 && pestillo3 === combs[i].d3
                 && pestillo4 === combs[i].d4

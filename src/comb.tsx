@@ -1,5 +1,6 @@
 export type comb = {
     comb_id: string,
+    active: boolean,
     d1: number,
     d2: number,
     d3: number,
@@ -11,6 +12,7 @@ export type comb = {
 
 export const emptyComb = {
     comb_id: "",
+    active: false,
     d1: 0,
     d2: 0,
     d3: 0,
