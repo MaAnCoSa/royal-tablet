@@ -15,8 +15,6 @@ const OpenLockButton: React.FC<{
             flexDirection: 'column'
         }}>
 
-            
-
             <Link to='/' onClick={props.delayAndGo}>
                 <button
                 className='lock-button'

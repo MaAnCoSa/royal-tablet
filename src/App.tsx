@@ -1,40 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import LockPage from './components/lockPage';
 import InsidePage from './components/insidePage';
 import backgroundTexture from './images/background_texture.jpg';
 import './styles/Modal.css';
 import { useEffectOnce } from 'react-use';
+import { comb } from './comb';
+import { changeCombList, changeCode, changeMsg } from './redux/combsSlice';
+import { useDispatch } from 'react-redux';
 
 
 
 function App() {
+  const dispatch = useDispatch()
+
   const [loginModal, setLoginModal] = useState<boolean>(true)
   const [tableName, setTableName] = useState<string>("")
  
   const cookies = new Map()
-
-  type comb = {
-    d1: number,
-    d2: number,
-    d3: number,
-    d4: number,
-    d5: number,
-    msg: string,
-    code: string
-  }
-
-  const emptyComb = {
-    d1: 0,
-    d2: 0,
-    d3: 0,
-    d4: 0,
-    d5: 0,
-    msg: "",
-    code: ""
-  }
-
-  const [actualComb, setActualComb] = useState<comb>(emptyComb)
 
   useEffectOnce(() => {
     const cookiesRaw = document.cookie.split('; ')
@@ -52,7 +35,7 @@ function App() {
 
   const login = async (table_name: string) => {
     let date = new Date()
-    date.setSeconds(date.getMinutes() + 30)
+    date.setMinutes(date.getMinutes() + 30)
     document.cookie = `royal-tablet-table-name=${table_name}; expires=${date.toUTCString()}`
 
     const requestOptions = {
@@ -62,29 +45,25 @@ function App() {
     }
     await fetch('https://backcaliria.vercel.app/rtlogin-user', requestOptions)
     .then(res => res.json())
-    .then((sol: {auth: boolean, comb: string, table_id: string}) => {
+    .then((sol: { auth: boolean, combs: string[] }) => {
         if (sol.auth) {
-          const parsedSol = JSON.parse(sol.comb)
-          const newSol = {
-            d1: parsedSol.d1,
-            d2: parsedSol.d2,
-            d3: parsedSol.d3,
-            d4: parsedSol.d4,
-            d5: parsedSol.d5,
-            msg: parsedSol.msg,
-            code: parsedSol.code
-          }
-          setActualComb(newSol)
-          console.log(parsedSol)
-          console.log(actualComb)
+          const newCombList: comb[] = []
+          sol.combs.forEach((comb) => {
+            const parsedComb = JSON.parse(comb)
+            newCombList.push(parsedComb)
+          })
+          dispatch(changeCombList(newCombList))
+
           setLoginModal(false)
         }
-
     });
   }
 
   const cerrarSesion = () => {
     document.cookie = `royal-tablet-table-name=${cookies.get('royal-tablet-table-name')}; expires=${new Date()}`
+    dispatch(changeCombList([]))
+    dispatch(changeMsg(""))
+    dispatch(changeCode(""))
     setLoginModal(true)
   }
 
@@ -147,7 +126,7 @@ function App() {
       </div>
       )}
 
-      {!loginModal && 
+      {(!loginModal) && 
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -155,17 +134,8 @@ function App() {
         alignItems: 'center'
       }}>
         <Routes>
-          <Route path='/' element={<LockPage
-            digit1={actualComb.d1}
-            digit2={actualComb.d2}
-            digit3={actualComb.d3}
-            digit4={actualComb.d4}
-            digit5={actualComb.d5}
-          />} />
-          <Route path='/ze' element={<InsidePage 
-            msg={actualComb.msg}
-            clave={actualComb.code}
-          />} />
+          <Route path='/' element={<LockPage />} />
+          <Route path='/ze' element={<InsidePage />} />
         </Routes>
 
         <div style={{

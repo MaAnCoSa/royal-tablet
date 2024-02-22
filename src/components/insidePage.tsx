@@ -1,24 +1,22 @@
-import { Typography } from '@mui/material';
 import React, { useState } from 'react';
 import BackButton from './backButton';
 import tabletTexture from '../images/tablet_texture.jpg';
 import coor from '../images/Coor.png';
 import { useNavigate } from 'react-router-dom';
 import '../stylesheets/insidePage.css';
+import { useSelector } from 'react-redux';
 
-const InsidePage: React.FC<{
-    clave: string,
-    msg: string
-}> = (props) => {
+const InsidePage: React.FC<{}> = (props) => {
+
+    const msg = useSelector((state: any) => state.combList.msg)
+    const code = useSelector((state: any) => state.combList.code)
 
     const [closing, setClosing] = useState<string>('openingInside');
 
     const history = useNavigate();
     const delayAndGo = (e: any) => {
         e.preventDefault();
-
         setClosing('closingInside');
-
         setTimeout(() => history('/'), 1000);
     };
 
@@ -88,7 +86,7 @@ const InsidePage: React.FC<{
                         marginBottom: '50px',
                         userSelect: 'none'
                     }}>
-                        {props.msg}    
+                        {msg}    
                 </div>
 
 
@@ -123,7 +121,7 @@ const InsidePage: React.FC<{
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                 }}>
-                    {props.clave}
+                    {code}
                 </div>
 
                 

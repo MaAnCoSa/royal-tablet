@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OpenLockButton from './openLockButton';
 import Pestillo from './pestillo';
@@ -9,17 +9,12 @@ import oSymbol from '../images/o.png';
 import o2Symbol from '../images/o2.png';
 import rSymbol from '../images/r.png';
 import zSymbol from '../images/z.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeMsg, changeCode } from '../redux/combsSlice';
 
-const MainLock: React.FC<{
-    setOpen: Function,
-    digit1: number,
-    digit2: number,
-    digit3: number,
-    digit4: number,
-    digit5: number
-}> = (props) => {
-
-//const MainLock = ({ setOpen, key }: { setOpen: Function, key: number[] }) => {
+const MainLock = () => {
+    const combs = useSelector((state: any) => state.combList.combs)
+    const dispatch = useDispatch()
 
     const [pestillo1, setPestillo1] = useState<number>(0);
     const [pestillo2, setPestillo2] = useState<number>(0);
@@ -28,8 +23,6 @@ const MainLock: React.FC<{
     const [pestillo5, setPestillo5] = useState<number>(0);
 
     const [lockPage, setLockPage] = useState<string>('openLockPage');
-
-
 
     const cambiarPestillo = (pestillo: number, inc: number) => {
         switch (pestillo) {
@@ -89,14 +82,19 @@ const MainLock: React.FC<{
     };
 
     const revisarCombinacion = () => {
-        const open: boolean =
-            pestillo1 === props.digit1
-            && pestillo2 === props.digit2
-            && pestillo3 === props.digit3
-            && pestillo4 === props.digit4
-            && pestillo5 === props.digit5;
-        open ? props.setOpen(true) : props.setOpen(false);
-        return open;
+        for (let i = 0; i < combs.length; i++) {
+            if (pestillo1 === combs[i].d1
+                && pestillo2 === combs[i].d2
+                && pestillo3 === combs[i].d3
+                && pestillo4 === combs[i].d4
+                && pestillo5 === combs[i].d5) {
+                    dispatch(changeMsg(combs[i].msg))
+                    dispatch(changeCode(combs[i].code))
+                    return true
+                } else {
+                }
+        }
+        return false
     };
 
     const history = useNavigate();
@@ -219,13 +217,9 @@ const MainLock: React.FC<{
                         alignItems: 'center',
                         margin: 'auto',
                     }}>
-                    
                     <OpenLockButton open={revisarCombinacion()} delayAndGo={delayAndGo} />
-
                 </div>
-            
-            
-
+                
             </div>
         </div>
         
